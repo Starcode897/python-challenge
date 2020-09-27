@@ -3,7 +3,7 @@
 import os
 import csv
 
-pypoll_csv = os.path.join("..", "Resources", "election_data.csv")
+pypoll_csv = os.path.join("..","Resources","election_data.csv")
 
 #Data Lists
 candidates = []
@@ -39,16 +39,29 @@ with open(pypoll_csv) as csvfile:
     
     for key, value in votepercent.items():
         votepercent[key] = round((value * 100 / totalvotenumber), 2) 
-        
 
-output_path = os.path.join("..", "Homework 3", "py_poll.txt")
+maximum = max(candidatevote, key=candidatevote.get)        
 
-with open(output_path, 'w') as txtfile:
-    
-        
 
-print(totalvotenumber)
-print(candidatevote)
-print(votepercent)
-        
-text_file
+with open("poll.txt", "w") as file:
+    file.write("Election Results")
+    file.write("\n")
+    file.write("-----------------")
+    file.write("\n")
+    file.write("Total Votes: " + str(totalvotenumber))
+    file.write("\n")
+    file.write("-----------------")
+    file.write("\n")
+    file.write("Khan: " + (str(votepercent["Khan"]) + "%") + "(" + (str(candidatevote["Khan"])) + ")")
+    file.write("\n")
+    file.write("Correy: " + (str(votepercent["Correy"]) + "%") + "(" + (str(candidatevote["Correy"])) + ")")
+    file.write("\n")
+    file.write("Li: " + (str(votepercent["Li"]) + "%") + "(" + (str(candidatevote["Li"])) + ")")
+    file.write("\n")
+    file.write("O'Tooley: " + (str(votepercent["O'Tooley"]) + "%") + "(" + (str(candidatevote["O'Tooley"])) + ")")
+    file.write("\n")
+    file.write("-----------------")
+    file.write("\n")
+    file.write("Winner: " + maximum)
+
+    file.close()

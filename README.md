@@ -13,6 +13,8 @@ votepercent = {}
 percent = 0
 totalvotenumber = 0
 
+print("Election Results")
+
 with open(pypoll_csv) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
 
@@ -20,9 +22,14 @@ with open(pypoll_csv) as csvfile:
         candidates.append(row[2])
         totalvotenumber += 1
     
+    print("-------------------")
+    print("Total Votes: " + str(totalvotenumber))
+    print("--------------------")
+
     candidatevote = dict.fromkeys(candidates, vote)
     votepercent = dict.fromkeys(candidates, percent)
 
+    #Vote count
     for candidate in candidates:
         if candidate == "Khan":
             candidatevote["Khan"] += 1
@@ -36,12 +43,18 @@ with open(pypoll_csv) as csvfile:
         elif candidate == "O'Tooley":
             candidatevote["O'Tooley"] += 1
             votepercent["O'Tooley"] += 1
-    
+
     for key, value in votepercent.items():
         votepercent[key] = round((value * 100 / totalvotenumber), 2) 
 
 maximum = max(candidatevote, key=candidatevote.get)        
 
+print("Khan: " + (str(votepercent["Khan"]) + "%") + "(" + (str(candidatevote["Khan"])) + ")")
+print("Correy: " + (str(votepercent["Correy"]) + "%") + "(" + (str(candidatevote["Correy"])) + ")")
+print("Li: " + (str(votepercent["Li"]) + "%") + "(" + (str(candidatevote["Li"])) + ")")
+print("O'Tooley: " + (str(votepercent["O'Tooley"]) + "%") + "(" + (str(candidatevote["O'Tooley"])) + ")")
+print("--------------------")
+print("Winner: " + maximum)
 
 with open("poll.txt", "w") as file:
     file.write("Election Results")
@@ -65,3 +78,6 @@ with open("poll.txt", "w") as file:
     file.write("Winner: " + maximum)
 
     file.close()
+    
+    
+
